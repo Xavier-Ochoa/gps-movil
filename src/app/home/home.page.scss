@@ -1,0 +1,125 @@
+ion-toolbar {
+  --background: var(--ion-color-primary);
+  ion-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: white;
+    font-weight: 700;
+  }
+}
+
+.coords-card {
+  border-left: 4px solid var(--ion-color-primary);
+  border-radius: 12px;
+  margin-bottom: 12px;
+
+  ion-card-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+}
+
+.coord-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+
+  &:last-child { border-bottom: none; }
+}
+
+.coord-label {
+  color: var(--ion-color-medium);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.coord-value {
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: monospace;
+  color: var(--ion-color-dark);
+}
+
+.error-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff3f3;
+  border: 1px solid var(--ion-color-danger);
+  color: var(--ion-color-danger);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+.action-btn {
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ion-color-medium);
+  margin: 16px 4px 6px;
+}
+
+.save-btn {
+  margin-top: 12px;
+  ion-spinner { margin-right: 6px; }
+}
+
+.db-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  padding: 6px 0;
+  min-height: 28px;
+
+  &.idle { display: none; }
+
+  &.guardando {
+    color: var(--ion-color-medium);
+    &::before { content: '⏳ '; }
+  }
+
+  &.exito { color: var(--ion-color-success); }
+  &.error { color: var(--ion-color-danger); }
+
+  .db-name {
+    font-weight: 700;
+  }
+}
+
+.maps-card {
+  border-left: 4px solid #ea4335;
+  border-radius: 12px;
+}
+
+.maps-link-text {
+  font-size: 0.78rem;
+  color: var(--ion-color-medium);
+  word-break: break-all;
+  background: #f8f8f8;
+  padding: 8px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-family: monospace;
+}
+
+.maps-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}

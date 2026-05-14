@@ -1,0 +1,118 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      <ion-icon name="location-outline"></ion-icon>
+      Mi Ubicación GPS
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Tarjeta de Coordenadas -->
+  <ion-card *ngIf="latitude() !== null && longitude() !== null" class="coords-card">
+    <ion-card-header>
+      <ion-card-title>
+        <ion-icon name="location-outline" color="primary"></ion-icon>
+        Coordenadas actuales
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="coord-row">
+        <span class="coord-label">Latitud</span>
+        <span class="coord-value">{{ latitude() | number:'1.6-6' }}</span>
+      </div>
+      <div class="coord-row">
+        <span class="coord-label">Longitud</span>
+        <span class="coord-value">{{ longitude() | number:'1.6-6' }}</span>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Mensaje de error de ubicación -->
+  <div *ngIf="errorMsg()" class="error-banner">
+    <ion-icon name="alert-circle-outline"></ion-icon>
+    <span>{{ errorMsg() }}</span>
+  </div>
+
+  <!-- Botón obtener ubicación -->
+  <ion-button expand="block" (click)="obtenerUbicacionActual()" class="action-btn" fill="outline" color="primary">
+    <ion-icon slot="start" name="refresh-outline"></ion-icon>
+    Actualizar ubicación
+  </ion-button>
+
+  <!-- Separador -->
+  <div class="section-title" *ngIf="latitude() !== null">Guardar registro</div>
+
+  <!-- Etiqueta / Nombre -->
+  <ion-card *ngIf="latitude() !== null">
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-label position="stacked">Nombre / Etiqueta del registro</ion-label>
+        <ion-input
+          [(ngModel)]="nombreEtiqueta"
+          placeholder="Ej: Casa, Trabajo, Punto 1..."
+          clearInput="true">
+        </ion-input>
+      </ion-item>
+
+      <!-- Botón guardar en ambas bases de datos -->
+      <ion-button
+        expand="block"
+        color="success"
+        (click)="guardarUbicacion()"
+        [disabled]="estadoFirebase() === 'guardando' || estadoSupabase() === 'guardando'"
+        class="save-btn">
+        <ion-icon slot="start" name="save-outline"></ion-icon>
+        <span *ngIf="estadoFirebase() !== 'guardando'">Guardar en Firebase y Supabase</span>
+        <span *ngIf="estadoFirebase() === 'guardando'">
+          <ion-spinner name="dots" color="light"></ion-spinner>
+          Guardando...
+        </span>
+      </ion-button>
+
+      <!-- Estado Firebase -->
+      <div class="db-status" [ngClass]="estadoFirebase()">
+        <ng-container *ngIf="estadoFirebase() === 'exito'">
+          <ion-icon name="checkmark-circle-outline" color="success"></ion-icon>
+          <span class="db-name">Firebase:</span> {{ mensajeFirebase() }}
+        </ng-container>
+        <ng-container *ngIf="estadoFirebase() === 'error'">
+          <ion-icon name="alert-circle-outline" color="danger"></ion-icon>
+          <span class="db-name">Firebase:</span> {{ mensajeFirebase() }}
+        </ng-container>
+      </div>
+
+      <!-- Estado Supabase -->
+      <div class="db-status" [ngClass]="estadoSupabase()">
+        <ng-container *ngIf="estadoSupabase() === 'exito'">
+          <ion-icon name="checkmark-circle-outline" color="success"></ion-icon>
+          <span class="db-name">Supabase:</span> {{ mensajeSupabase() }}
+        </ng-container>
+        <ng-container *ngIf="estadoSupabase() === 'error'">
+          <ion-icon name="alert-circle-outline" color="danger"></ion-icon>
+          <span class="db-name">Supabase:</span> {{ mensajeSupabase() }}
+        </ng-container>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Google Maps Link -->
+  <div class="section-title" *ngIf="googleMapsLink()">Google Maps</div>
+
+  <ion-card *ngIf="googleMapsLink()" class="maps-card">
+    <ion-card-content>
+      <p class="maps-link-text">{{ googleMapsLink() }}</p>
+      <div class="maps-buttons">
+        <ion-button expand="block" color="danger" (click)="abrirGoogleMaps()">
+          <ion-icon slot="start" name="map-outline"></ion-icon>
+          Abrir en Google Maps
+        </ion-button>
+        <ion-button expand="block" fill="outline" color="medium" (click)="copiarLink()">
+          Copiar link
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
