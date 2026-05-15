@@ -1,3 +1,5 @@
+## LUIS XAVIER OCHOA CALLE
+
 # 📍 MiUbicacion GPS App
 
 > Aplicación Ionic + Angular que registra tu geolocalización en Firebase y Supabase, y genera un link directo a Google Maps.
